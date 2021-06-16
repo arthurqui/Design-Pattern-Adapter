@@ -11,7 +11,7 @@ class DisplayLocal
     public:
     enum Numero
     {
-        Um = 0,
+        Um = 1,
         Dois,
         Tres,
         Quatro
