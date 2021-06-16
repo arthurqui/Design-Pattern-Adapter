@@ -1,0 +1,43 @@
+----------diagrama generico-----------------------------
+client: implementa a interface target ou seja ...
+
+target: ... a interface é implementada pelo cliente com seus atributos necessários.
+
+adapter: herda os atributos de target e adapta eles para um novo formato que seja necessário por meio de uma implementação.
+
+----------------------Diagrama especifico ----------------------
+
+No caso do nosso problema, o software da Versão 1 da caixa de som foi reutilizado na Versão 2, então o app implementa a interface display local com seus atributos que seriam para exibir a mensagem no formato para display 1.
+
+Então o adapter herda os atributos que seriam exibidos pela interface da versão 1 e adapta eles ao formato que a versão 2 pede.
+
+e depois o display remoto exibe as informações traduzidas para o seu molde, com suas especificações.
+
+-------------------- Implementaçao------------------------
+
+Primeiramente só pra exemplificar, a gente fez uma implementação de como seria a caixa V1:
+
+Caixa V1 fazia uma tarefa simples, exibia o numero da musica e uma string com o seu nome.
+
+Já a caixa V2 não, a caixa V2 tem um display mais complexo e exibe sua mensagem de uma maneira diferente e não pode mais usar as mensagens da primeira versão, por isso no metodo MENSAGEM foram matidos os atributos porem setado o valor 0.
+
+então começa as especificações do display remoto, nesse caso a gnt colocou display remoto.h no comentario só pra mostrar como seria se fosse feito em arquivos separados, porém a gente optou por deixar tudo no mesmo para ficar mais didatico.
+
+começamos com a classe displayremoto, sua parte publica de como seriam as mensagens (msgUm(string mensagem) para a primeira mensagem, referente a primeira musica e assim por diante.
+
+depois disso os metodos do display remoto que implementam as mensagens a serem printadas na tela.
+
+e logo depois disso o começamos com o adapter, o adapter adapta a mensagem do displaylocal conforme as especificações do display remoto.
+
+como podemos ver, o adapter referencia o display local para pegar a mensagem original e o display remoto pra pegar as especificações, utiliza um virtual void identico ao display local e seta cada mensagem no formato do display remoto ao enum do display local, e assim ele 'traduz" a mensagem no formato do display local para o formato do display remoto.
+
+Depois disso no main printamos as mensagens já no formato do display remoto.
+
+--------------------Possiveis perguntas do professor:-----------------
+
+virtual void: pode ser sobrescrito em um herdeiro
+
+unique_ptr é um ponteiro especial utilizado para referenciar os atributos do display local apenas uma vez e ser usado pelo adapter em todas as mensagens do display remoto v2.
+
+:: - usado pra tirar ambiguidade, pra evitar a confusão entre dois ou mais membros, define algo já declarado que pertence a classe.
+
